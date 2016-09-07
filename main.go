@@ -459,19 +459,24 @@ body {
 
 .markdown-body table th {
 	font-weight: bold;
+	border-bottom: 4px solid #f6f6f6;
 }
 
 .markdown-body table th,
 .markdown-body table td {
-	padding: 6px 13px;
+	padding: 8px 14px;
 }
 
-.markdown-body table tr {
-	background-color: #fff;
+.markdown-body table td:nth-child(1n) {
+	border-bottom: 4px solid #f6f6f6;
+}
+
+.markdown-body table td:nth-child(2n) {
+	border-left: 8px solid #ffffff;
+	border-right: 8px solid #ffffff;
 }
 
 .markdown-body table tr:nth-child(2n) {
-	background-color: #F6F6F6;
 }
 
 .markdown-body img {
