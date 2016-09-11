@@ -16,16 +16,18 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	extension := filepath.Ext(filename)
+	name := filename[0:len(filename)-len(extension)]
 
 	markdownBytes := markdown.Markdown(fileBytes)
 
-	outputFile, err := os.Create(filename + ".html")
+	outputFile, err := os.Create(name + ".html")
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	tmpl, err := template.New("markdown").Parse(htmlTemplate)
-	err = tmpl.Execute(outputFile, context{Title: filepath.Clean(filename), Body: string(markdownBytes)})
+	err = tmpl.Execute(outputFile, context{Title: filepath.Clean(name), Body: string(markdownBytes)})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -40,7 +42,6 @@ var htmlTemplate = `
 <html>
 	<head>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
 		<title>{{.Title}}</title>
 		<style>
 * {
@@ -693,6 +694,47 @@ body {
 	position: relative;
 	border-color: #4078c0;
 }
+
+.highlight .h{color:#333;font-style:normal;font-weight:normal}
+.highlight .mf,.highlight .mh,.highlight .mi,.highlight .mo,.highlight .il,.highlight .m{color:#945277}
+.highlight .s,.highlight .sb,.highlight .sc,.highlight .sd,.highlight .s2,.highlight .se,.highlight .sh,.highlight .si,.highlight .sx,.highlight .s1{color:#df5000}
+.highlight .kc,.highlight .kd,.highlight .kn,.highlight .kp,.highlight .kr,.highlight .kt,.highlight .k,.highlight .o{font-weight:bold}
+.highlight .kt{color:#458}
+.highlight .c,.highlight .cm,.highlight .c1{color:#998;font-style:italic}
+.highlight .cp,.highlight .cs{color:#999;font-weight:bold}
+.highlight .cs{font-style:italic}
+.highlight .n{color:#333}
+.highlight .na,.highlight .nv,.highlight .vc,.highlight .vg,.highlight .vi{color:#008080}
+.highlight .nb{color:#0086B3}
+.highlight .nc{color:#458;font-weight:bold}
+.highlight .no{color:#094e99}
+.highlight .ni{color:#800080}
+.highlight .ne{color:#990000;font-weight:bold}
+.highlight .nf{color:#945277;font-weight:bold}
+.highlight .nn{color:#555}
+.highlight .nt{color:#000080}
+.highlight .err{color:#a61717;background-color:#e3d2d2}
+.highlight .gd{color:#000;background-color:#fdd}
+.highlight .gd .x{color:#000;background-color:#faa}
+.highlight .ge{font-style:italic}
+.highlight .gr{color:#aa0000}
+.highlight .gh{color:#999}
+.highlight .gi{color:#000;background-color:#dfd}
+.highlight .gi .x{color:#000;background-color:#afa}
+.highlight .go{color:#888}.highlight .gp{color:#555}
+.highlight .gs{font-weight:bold}
+.highlight .gu{color:#800080;font-weight:bold}
+.highlight .gt{color:#aa0000}.highlight .ow{font-weight:bold}
+.highlight .w{color:#bbb}.highlight .sr{color:#017936}
+.highlight .ss{color:#8b467f}.highlight .bp{color:#999}
+.highlight .gc{color:#999;background-color:#EAF2F5}
+.type-csharp .highlight .k{color:#0000FF}
+.type-csharp .highlight .kt{color:#0000FF}
+.type-csharp .highlight .nf{color:#000000;font-weight:normal}
+.type-csharp .highlight .nc{color:#2B91AF}
+.type-csharp .highlight .nn{color:#000000}
+.type-csharp .highlight .s{color:#A31515}
+.type-csharp .highlight .sc{color:#A31515}
 		</style>
 	</head>
 <body>
